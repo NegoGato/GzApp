@@ -1,0 +1,92 @@
+<mat-card-content style="overflow: auto;">        
+  <form  (ngSubmit)="onSubmit(movimentacaoFinanceiraFrm)"  [formGroup]="movimentacaoFinanceiraFrm">
+     <h2 style="text-align: center">{{data.modalTitle}}</h2>
+  <!-- <mat-drawer-container class="example-container">  -->
+                    <table style="margin-left: auto; margin-right: auto; width: 100%;" class="docs-example-viewer-wrapper">                    
+                      <tr>
+                        <td colspan="3">
+                            <mat-form-field style="width: 100%; margin-bottom: -1.25em;" appearance="outline">
+                                <mat-label>Conta origem</mat-label>
+                                <mat-select [disabled]="disableSelect.value" placeholder="Conta origem" style="width: 100%" formControlName="contaOrigemId"   #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="contaFinanceiraFilterCtrl"></ngx-mat-select-search>
+                                    </mat-option>                 
+                                    <mat-option>-- None --</mat-option>
+                                  <mat-option *ngFor="let contaFinanceira of filteredContaFinanceira | async" [value]="contaFinanceira.id">
+                                    {{contaFinanceira.conta}} | {{contaFinanceira.descricao}} - {{contaFinanceira.empresa}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>    
+                        </td>
+                      </tr>            
+                      <tr>
+                        <td colspan="3">
+                            <mat-form-field style="width: 100%; margin-bottom: -1.25em;" appearance="outline">
+                                <mat-label>Conta destino</mat-label>
+                                <mat-select placeholder="Conta detisno" style="width: 100%" formControlName="contaDestinoId"   #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [formControl]="contaFinanceiraFilterCtrl"></ngx-mat-select-search>
+                                    </mat-option>                 
+                                    <mat-option>-- None --</mat-option>
+                                  <mat-option *ngFor="let contaFinanceira of filteredContaFinanceira | async" [value]="contaFinanceira.id">
+                                    {{contaFinanceira.conta}} | {{contaFinanceira.descricao}} - {{contaFinanceira.empresa}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>    
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <td colspan="3" >
+                            <mat-form-field style="width:100%; margin-bottom: -1.25em;" appearance="outline">
+                                <mat-select placeholder="Tipo movimentação" formControlName="tipoMov">
+                                  <mat-option>-- None --</mat-option>
+                                  <mat-option *ngFor="let tipoMov  of listTipoMov" [value]="tipoMov.id">
+                                    {{ tipoMov.descricao }}
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="formErrors.tipoMov ">
+                                  {{ formErrors.tipoMov }}
+                                </mat-error>
+                              </mat-form-field>                             
+                        </td>                       
+                      </tr>  
+
+                      <tr>
+                        <td colspan="3">
+                          <mat-form-field style="width: 100% ;margin-bottom: -1.25em;" appearance="outline">
+                            <input matInput [matDatepicker]="picker1" placeholder="Data movimentação"  formControlName="dataMovimentacao">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>                              
+                          <mat-error *ngIf="formErrors.dataMovimentacao">
+                            {{ formErrors.dataMovimentacao }}
+                          </mat-error>
+                          </mat-form-field>  
+                        </td>
+                      </tr>  
+
+                      <tr>
+                        <td colspan="3">
+                            <mat-form-field style="width: 100% ; margin-bottom: -1.25em;" appearance="outline">
+                                <mat-label>Valor</mat-label>
+                                <input currencyMask matInput formControlName="debito">
+                                <!-- <input matInput placeholder="Valor" currencyMask  formControlName="valor"> -->
+                                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                                <!-- <mat-hint>Hint</mat-hint> -->
+                                <mat-error *ngIf="formErrors.debito">
+                                  {{ formErrors.debito }}
+                                </mat-error>
+                              </mat-form-field>
+                        </td>                       
+                      </tr>
+                                     
+                      <tr>
+                          <td>
+                              <button type="button" mat-raised-button color="warn" (click)="dialogRef.close()">Cancelar</button>&nbsp;
+                              <button type="submit" mat-raised-button color="primary" [disabled]="movimentacaoFinanceiraFrm.invalid">{{data.modalBtnTitle}}</button>
+                          </td>
+                      </tr>
+                     
+                    </table>                                           
+            </form>
+</mat-card-content>

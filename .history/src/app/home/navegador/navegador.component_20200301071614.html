@@ -1,0 +1,104 @@
+<mat-card-content>       
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+      #drawer
+      class="sidenav"
+      fixedInViewport="true"
+      [attr.role]="isHandset ? 'dialog' : 'navigation'"
+      [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
+      [opened]="!(isHandset | async)!.matches">
+      <mat-toolbar color="primary"> GZ - App</mat-toolbar>   
+        <mat-nav-list>
+          
+            
+        </mat-nav-list>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      <i class="material-icons">assessment</i>&nbsp;Dashboard
+                  </mat-panel-title>                
+                </mat-expansion-panel-header>          
+                  <mat-nav-list>
+                      <a  *ngIf="currentUser!=null" mat-list-item routerLink="/frmdasboard"><i class = 'material-icons'>trending_up</i>&nbsp;Financeiro </a>  
+                      <a mat-list-item routerLink="/frmdasboard"><i class = 'material-icons'>view_module</i>&nbsp;Licença </a>      
+                  </mat-nav-list>             
+              </mat-expansion-panel>
+
+            <mat-expansion-panel *ngIf="currentUser!=null">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i class="material-icons">attach_money</i>&nbsp;Movimentação caixa
+                </mat-panel-title>                
+              </mat-expansion-panel-header>          
+                <mat-nav-list>
+                    <a  *ngIf="currentUser!=null" mat-list-item routerLink="/contafinanceira"><i class="material-icons">account_balance</i>&nbsp; Conta Financeira</a> 
+                  <a mat-list-item routerLink="/contasPagar"><i class="material-icons" style="color: red">attach_money</i>&nbsp;Contas a Pagar</a> 
+                  <a mat-list-item routerLink="/contasReceber"><i class="material-icons" style="color: green">attach_money</i>&nbsp;Contas a Receber</a>
+                  <a mat-list-item routerLink="/conciliacaoBancaria"><i class="material-icons">system_update_alt</i>&nbsp;Conciliação bancária</a>
+                  <a mat-list-item routerLink="/movimentacaoFinanceira"><i class="material-icons">swap_horiz</i>&nbsp;Movimentação entre contas</a>
+                 <!-- <a mat-list-item routerLink="/conciliacaoBancaria"><i class="material-icons">insert_drive_file</i>&nbsp;Extrato</a>  -->                 
+                </mat-nav-list>             
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      <i class="material-icons">settings</i>&nbsp;Gerencial
+                  </mat-panel-title>                
+                </mat-expansion-panel-header>          
+                  <mat-nav-list>
+                      <a  *ngIf="currentUser!=null " mat-list-item routerLink="/fornecedores"><i class="material-icons">store_mall_directory</i>&nbsp; Fornecedor</a>
+                      <a mat-list-item routerLink="/unidades"><i class="material-icons">business</i>&nbsp; Unidade</a>
+                      <a mat-list-item routerLink="/gerenciadorLicenses"><i class="material-icons">business_center</i>&nbsp; Licenças</a>                       
+                      <a  *ngIf="currentUser!=null " mat-list-item routerLink="/pagamentos"><i class="material-icons">attach_money</i>&nbsp; Pagamentos</a>  
+                      <a mat-list-item routerLink="/usuarios"><i class="material-icons">person_add</i>&nbsp; Usuário</a>  
+                      <a mat-list-item routerLink="/alterarsenha"><i class="material-icons">vpn_key</i>&nbsp; Alterar senha</a>
+                      <a mat-list-item (click)="onLogout()"><i class="material-icons">power_settings_new</i>&nbsp; Sair</a>                 
+                  </mat-nav-list>
+                     
+              </mat-expansion-panel>              
+          </mat-accordion>  
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title >{{nome}}</mat-card-title>
+              <mat-card-subtitle>Seja bem vindo</mat-card-subtitle>
+            </mat-card-header>            
+            <mat-card-content>
+              <p>
+                Tenha um ótimo dia...
+              </p>
+            </mat-card-content>            
+          </mat-card>              
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="(isHandset | async)!.matches">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>  
+        <mat-card-content>       
+          <div _ngcontent-c10="" class="docs-footer-copyright">
+            <!-- <span _ngcontent-c10=""> License APP &nbsp; </span> -->
+          </div>
+          <div *ngIf="nome!=null" _ngcontent-c10="" class="docs-footer-version">
+              <!-- <span _ngcontent-c10="" class="version">Seja Bem vindo: {{teste.user.name}}&nbsp; </span> -->
+            </div>
+        </mat-card-content>
+        
+      </mat-toolbar>
+      <span *ngIf="currentUser==null">
+        <app-formlogin (usuarioLogado)="usuarioAutenticado($event)"></app-formlogin>
+      </span>
+      <span *ngIf="currentUser!=null">
+        <router-outlet></router-outlet> 
+      </span>        
+    </mat-sidenav-content>   
+   
+  </mat-sidenav-container> 
+  
+</mat-card-content>

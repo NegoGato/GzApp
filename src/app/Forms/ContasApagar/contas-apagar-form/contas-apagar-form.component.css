@@ -1,0 +1,23 @@
+
+.example-container {
+    width: 100%;
+    height: 10%;
+    margin: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #555;
+  }
+
+  .docs-example-viewer-wrapper{
+    border:1px solid rgba(0, 0, 0, .03);
+    box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
+    margin: 4px;
+  }
+
+  div {
+    display: block;
+    padding: 30px;
+}
+#clearFitler{
+  cursor: pointer;
+}

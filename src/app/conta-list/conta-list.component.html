@@ -1,0 +1,94 @@
+   <div class="spinner" *ngIf="loadingState; else listContas">
+      <mat-spinner></mat-spinner>
+  </div>
+  <div class="example-container mat-elevation-z8">
+  <!-- <ng-template class="unidadelist" #listUnidade> -->
+    <h2 style="text-align: center;">Contas Bancárias</h2>
+    <div class="unidadelist-container mat-elevation-z8">
+       
+      <div><button title="Create" mat-raised-button color="accent" (click)="addContaFinanceira()">Adicionar</button></div>
+      <mat-table #table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+            <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+            <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+          </mat-cell>
+          <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+        </ng-container>
+
+        <!-- Banco Column -->
+        <ng-container matColumnDef="empresa">
+          <mat-header-cell *matHeaderCellDef> Empresa </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.empresa}} </mat-cell>
+          <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
+        </ng-container>
+
+        <!-- Descrição de hardware Column -->
+        <ng-container matColumnDef="descricao">
+          <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
+          <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+        </ng-container>
+
+        <!-- Empresa de hardware Column -->
+        <ng-container matColumnDef="banco">
+          <mat-header-cell *matHeaderCellDef> Banco </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.banco}} </mat-cell>
+          <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+        </ng-container>
+
+         <!-- Agencia  Column -->
+         <ng-container matColumnDef="agencia">
+          <mat-header-cell *matHeaderCellDef> Agência </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.agencia}}</mat-cell>
+          <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+        </ng-container>
+
+        <!-- Conta -->
+        <ng-container matColumnDef="conta">
+          <mat-header-cell *matHeaderCellDef> Conta </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.conta}} </mat-cell>
+          <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+        </ng-container>
+
+        <!-- Saldo -->
+        <ng-container matColumnDef="saldo">
+          <mat-header-cell *matHeaderCellDef> Saldo </mat-header-cell>
+          
+          <mat-cell *matCellDef="let element">
+              <span *ngIf="element.saldo<0" style="color: red;">{{element.saldo | currency:'R$'}}</span>
+              <span *ngIf="element.saldo>=0"> {{element.saldo | currency:'R$'}} </span>
+            </mat-cell>
+          <mat-footer-cell *matFooterCellDef>{{total | currency:'R$'}}</mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell class="center" *matHeaderCellDef> Operação </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button title="Editar" mat-raised-button color="primary" (click)="editContaFinanceira(element.id)">Editar</button>&nbsp;
+            <button mat-button title="Remover" mat-raised-button color="warn" (click)="deleteContaFinanceira(element.id)">Remover</button>
+          </mat-cell>
+          <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+        </ng-container>
+
+        <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[6, 10]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  <!-- </ng-template> -->

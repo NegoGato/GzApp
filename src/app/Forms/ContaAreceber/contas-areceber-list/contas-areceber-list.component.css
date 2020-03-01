@@ -1,0 +1,29 @@
+#clearFitler{
+    cursor: pointer;
+ }
+   mat-card button{
+     float: right;
+     margin-top: -17px;
+   }
+  
+   
+   h1{
+       text-align: center;
+   }
+   mat-form-field{
+       float: left;
+   }
+   button
+   {
+       /* float: right; */
+       margin-right: 1%;
+   }
+ 
+   mat-form-field {
+     margin-right: 12px;
+   }
+   p{
+       float: left;
+       position: absolute;
+   }
+ 

@@ -1,0 +1,186 @@
+<mat-card-content style="overflow: auto;">        
+    <form  (ngSubmit)="onSubmit(contasAPagarFrm)"  [formGroup]="contasAPagarFrm">
+       <h2 style="text-align: center">{{data.modalTitle}}</h2>
+    <!-- <mat-drawer-container class="example-container">  -->
+                      <table style="margin-left: auto; margin-right: auto;" class="docs-example-viewer-wrapper">
+                        <tr>
+                          <td colspan="3">
+
+                              <mat-form-field style="width:100%; margin-bottom: -1.25em;" appearance="outline">
+                                  <mat-select placeholder="Tipo documento" formControlName="tipoDoc" >
+                                    <mat-option>-- None --</mat-option>
+                                    <mat-option *ngFor="let tipoDoc  of listTipoDoc" [value]="tipoDoc.id">
+                                      {{ tipoDoc.descricao }}
+                                    </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="formErrors.tipoDoc ">
+                                    {{ formErrors.tipoDoc }}
+                                  </mat-error>
+                                </mat-form-field>   
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">
+                              <mat-form-field style="width: 100%; margin-bottom: -1.25em;" appearance="outline">
+                                  <mat-label>Conta financeira</mat-label>
+                                  <mat-select placeholder="Conta financeira" style="width: 100%" formControlName="contaId"   #singleSelect>
+                                      <mat-option>
+                                          <ngx-mat-select-search [formControl]="contaFinanceiraFilterCtrl"></ngx-mat-select-search>
+                                      </mat-option>                 
+                                      <mat-option>-- None --</mat-option>
+                                    <mat-option *ngFor="let contaFinanceira of filteredContaFinanceira | async" [value]="contaFinanceira.id">
+                                      {{contaFinanceira.conta}} | {{contaFinanceira.descricao}} - {{contaFinanceira.empresa}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>    
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">
+                              <mat-form-field style="width: 100%; margin-bottom: -1.25em;" appearance="outline">
+                                  <mat-label>Fornecedor</mat-label>  
+                                <mat-select style="width: 100%" placeholder="Fornecedor" formControlName="fornecedorId"  #singleSelect>
+                                      <mat-option>
+                                          <ngx-mat-select-search [formControl]="fornecedoresFilterCtrl"></ngx-mat-select-search>
+                                      </mat-option>                 
+                                      <mat-option>-- None --</mat-option>
+                                    <mat-option *ngFor="let fornecedor of filteredFornecedor | async" [value]="fornecedor.id">
+                                      {{fornecedor.nome}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>   
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2" >
+                              <mat-form-field style="width:100%; margin-bottom: -1.25em;" appearance="outline">
+                                  <mat-select placeholder="Operação" formControlName="operacao">
+                                    <mat-option>-- None --</mat-option>
+                                    <mat-option *ngFor="let operacoes  of listOperacoes" [value]="operacoes.id">
+                                      {{ operacoes.descricao }} - [{{operacoes.natureza}}]
+                                    </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="formErrors.operacao ">
+                                    {{ formErrors.operacao }}
+                                  </mat-error>
+                                </mat-form-field>                             
+                          </td>
+                          <td>
+                              <mat-form-field style="margin-bottom: -1.25em;" appearance="outline">
+                                  <input matInput [matDatepicker]="picker2" placeholder="Data"  formControlName="data">
+                                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker2></mat-datepicker>                        
+                                <mat-error *ngIf="formErrors.data ">
+                                  {{ formErrors.data }}
+                                </mat-error>
+                                </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                              <mat-form-field style="width: 100%; margin-bottom: -1.25em;"appearance="outline">
+                                  <mat-label>Título</mat-label>
+                                  <input matInput placeholder="Título" formControlName="titulo">
+                                  <mat-error *ngIf="formErrors.titulo">
+                                    {{ formErrors.titulo }}
+                                  </mat-error>
+                                </mat-form-field>
+                          </td>
+                            <td>
+                                <mat-form-field style="margin-bottom: -1.25em;"  appearance="outline">
+                                    <input matInput [matDatepicker]="picker3" placeholder="Agendada"  formControlName="dataAgendada">
+                                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker3></mat-datepicker>                        
+                                  <mat-error *ngIf="formErrors.dataAgendada ">
+                                    {{ formErrors.dataAgendada }}
+                                  </mat-error>
+                                  </mat-form-field>
+                            </td>
+                          </tr>
+                          <tr>
+                          <td>
+                              <mat-form-field style="margin-bottom: -1.25em;" appearance="outline">
+                                  <mat-label>Nr Nota Fiscal</mat-label>
+                                  <input matInput placeholder="Identificador fiscal" formControlName="notaFiscal">
+                                  <mat-error *ngIf="formErrors.notaFiscal">
+                                    {{ formErrors.notaFiscal }}
+                                  </mat-error>
+                                </mat-form-field>      
+                          </td>
+                          <td>
+                              <mat-form-field style="margin-bottom: -1.25em;" appearance="outline">
+                                  <input matInput [matDatepicker]="picker" placeholder="Emissão"  formControlName="emissao">
+                                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker></mat-datepicker>                        
+                                <mat-error *ngIf="formErrors.emissao ">
+                                  {{ formErrors.emissao }}
+                                </mat-error>
+                                </mat-form-field>   
+                          </td>
+                          <td>
+                              <mat-form-field style="margin-bottom: -1.25em;" appearance="outline">
+                                  <input matInput [matDatepicker]="picker1" placeholder="Vencimento"  formControlName="vencimento">
+                                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker1></mat-datepicker>                              
+                                <mat-error *ngIf="formErrors.vencimento ">
+                                  {{ formErrors.vencimento }}
+                                </mat-error>
+                                </mat-form-field>                          
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                              <mat-form-field style="width: 100% ; margin-bottom: -1.25em;" appearance="outline">
+                                  <mat-label>Valor</mat-label>
+                                  <input currencyMask matInput formControlName="valor">
+                                  <!-- <input matInput placeholder="Valor" currencyMask  formControlName="valor"> -->
+                                  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                                  <!-- <mat-hint>Hint</mat-hint> -->
+                                  <mat-error *ngIf="formErrors.valor">
+                                    {{ formErrors.valor }}
+                                  </mat-error>
+                                </mat-form-field>
+                          </td>
+                          <td>
+                              <mat-form-field style="width: 100% ; margin-bottom: -1.25em;" appearance="outline">
+                                  <mat-label>Desconto</mat-label>
+                                  <input currencyMask matInput formControlName="desconto">
+                                  <!-- <input matInput placeholder="Valor" currencyMask  formControlName="valor"> -->
+                                  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                                  <!-- <mat-hint>Hint</mat-hint> -->
+                                  <mat-error *ngIf="formErrors.desconto">
+                                    {{ formErrors.desconto }}
+                                  </mat-error>
+                                </mat-form-field>
+                          </td>
+                        </tr>
+                        <td colspan="3">
+                            <mat-form-field style="width: 100%; margin-bottom: -1.25em;" appearance="outline">
+                                <mat-label>Descrição</mat-label>
+                                <textarea  matInput placeholder="Descrição" formControlName="descricaoPagamento"></textarea>
+                                <mat-error *ngIf="formErrors.descricaoPagamento">
+                                  {{ formErrors.descricaoPagamento }}
+                                </mat-error>
+                              </mat-form-field> 
+                        </td>
+
+                        <tr>
+                          <td colspan="3">
+                              <input #fileInput hidden="true" type="file" (change)="getFiles($event)" accept="application/pdf" />
+                              <button type="button"  (click)="fileInput.click()" mat-flat-button color="primary" >Selecione um arquivo...</button>
+                              <span (click)="carregarAnexo()" style="margin-left: 1%; cursor: pointer;">{{fileName}}
+                                  </span><i id="clearFitler" (click)="limparFiltro()"  *ngIf="isHidden;" alt="limpar filtro" class="material-icons"> close
+                                    </i>
+                          </td>                          
+                      </tr>
+                      
+                        <tr>
+                            <td>
+                                <button type="button" mat-raised-button color="warn" (click)="dialogRef.close()">Cancelar</button>&nbsp;
+                                <button type="submit" mat-raised-button color="primary" [disabled]="contasAPagarFrm.invalid">{{data.modalBtnTitle}}</button>
+                            </td>
+                        </tr>
+                       
+                      </table>                                           
+              </form>
+</mat-card-content>

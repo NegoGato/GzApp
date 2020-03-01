@@ -1,0 +1,132 @@
+<h1>Conciliação bancária</h1>
+    <table style="margin-bottom: 4%; margin-left: auto; margin-right: auto; overflow: auto; border: 1px solid #555; width: 54%;">
+      <tr tr class="table-info"> 
+        
+          <td colspan="3">
+              <mat-form-field style="width: 100%; ">
+                  <mat-label>Conta bancária</mat-label>
+                  <mat-select placeholder="Conta financeira"  [(value)]="contaFinaceira" #singleSelect>
+                      <mat-option>
+                          <ngx-mat-select-search [formControl]="contaFinanceiraFilterCtrl"></ngx-mat-select-search>
+                      </mat-option>                 
+                      <mat-option>-- None --</mat-option>
+                    <mat-option *ngFor="let contaFinanceira of filteredContaFinanceira | async" [value]="contaFinanceira">
+                      {{contaFinanceira.conta}} | {{contaFinanceira.descricao}} - {{contaFinanceira.empresa}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>        
+          </td>  
+
+            <td colspan="0">
+                <mat-form-field style="width: 100%;" >
+                    <mat-label>Data</mat-label>
+                    <input matInput [matDatepicker]="picker1" [(value)]="inicio" (dateChange)="dataInicio('input',$event,1)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+            </td>       
+            
+       
+            <td colspan="0">
+                <button style="width: 100%;"  mat-raised-button (click)="Pesquisar()">Pesquisar</button>
+            </td> 
+      
+      </tr>
+    </table>       
+<mat-card>      
+  <button *ngIf="acao == 2" title="Desfazer conciliacao" mat-stroked-button color="warn" (click)="openDialogCancelar(2)">Desfazer conciliação</button>
+  <button *ngIf="acao == 1" title="Baixa pagamento" mat-stroked-button color="primary" (click)="openDialogCancelar(1)">Baixa Pagamento</button>
+</mat-card>
+ 
+<mat-table #table [dataSource]="dataSource">
+
+    <!-- Id Column -->
+    <!-- <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Id </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container> -->
+
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                    [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+      <!-- <mat-footer-cell *matFooterCellDef> </mat-footer-cell> -->
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)"
+                    [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </mat-cell>   
+  </ng-container>
+
+  <!-- Razao social Column -->
+  <ng-container matColumnDef="descricaoPagamento">
+      <mat-header-cell *matHeaderCellDef> Pagamento </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.descricaoPagamento}} </mat-cell>
+    </ng-container>    
+
+    <!-- Razao social Column -->
+    <ng-container matColumnDef="operacaoDescricao">
+      <mat-header-cell *matHeaderCellDef> Operação </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.operacaoDescricao}} </mat-cell>
+    </ng-container>
+
+    <!-- cnpj  Identificador Fiscal -->
+    <ng-container matColumnDef="data">
+        <mat-header-cell *matHeaderCellDef> Data do lançamento </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.data | date: 'dd/MM/yyyy' }} </mat-cell>
+      </ng-container>
+
+
+      <!-- cnpj  Identificador Fiscal -->
+    <ng-container matColumnDef="dataConciliacao">
+        <mat-header-cell *matHeaderCellDef> Data da conciliação </mat-header-cell>
+        <mat-cell  *matCellDef="let element" > 
+          <span *ngIf="!element.conciliado" style="color:orange;"> {{element.dataConciliacao | date: 'dd/MM/yyyy' }}</span> 
+          <span *ngIf="element.conciliado" style="color: rgb(13, 13, 14);"> {{element.dataConciliacao | date: 'dd/MM/yyyy' }}</span>
+        </mat-cell>
+      </ng-container>
+
+
+     <!-- cnpj  Column -->
+     <ng-container matColumnDef="debito">
+      <mat-header-cell *matHeaderCellDef> Débito </mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+        <span *ngIf="element.debito>0" style="color: red;">{{element.debito | currency:'R$'}}</span>
+        <span *ngIf="element.debito==0"> {{element.debito | currency:'R$'}} </span>
+      </mat-cell>
+    </ng-container>  
+    
+     <!-- cnpj  Column -->
+     <ng-container matColumnDef="credito">
+      <mat-header-cell *matHeaderCellDef> Crédito </mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+       <span *ngIf="element.credito>0" style="color: green;">{{element.credito | currency:'R$'}}</span>
+        <span *ngIf="element.credito ==0"> {{element.credito | currency:'R$'}} </span>
+      </mat-cell>
+      </ng-container>
+
+    <!-- cnpj  Identificador Fiscal -->
+    <ng-container matColumnDef="conciliado">
+        <mat-header-cell *matHeaderCellDef> Conciliado </mat-header-cell>
+        <mat-cell *matCellDef="let element">            
+            <mat-checkbox  color="primary" [checked]="element.conciliado" onclick="return false;">              
+            </mat-checkbox>
+           </mat-cell>
+      </ng-container>  
+      
+       <!-- Razao social Column -->
+    <ng-container matColumnDef="usuario">
+      <mat-header-cell *matHeaderCellDef> Usuário </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.usuario}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[6, 10]" showFirstLastButtons></mat-paginator>

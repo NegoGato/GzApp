@@ -1,0 +1,29 @@
+.docs-footer[_ngcontent-c10] {
+  /* padding: 12px;
+  font-size: 12px;
+  margin-top: 40px; */
+
+  position:fixed;
+  bottom:0;
+  width:100%;
+  z-index: 99;
+  height: 5%;
+}
+.docs-footer {
+  background: #673ab7;
+  color: #fff;
+}
+.docs-footer-list[_ngcontent-c10] {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 8px;
+}
+.docs-footer[_ngcontent-c10] {
+
+  font-size: 12px;
+
+}
+.docs-footer-logo[_ngcontent-c10] {
+  flex: 0.5;
+}

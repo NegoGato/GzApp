@@ -1,0 +1,36 @@
+.example-card {
+  /* max-width: 400px; */
+  /* margin: 2em auto; */
+  text-align: center;
+  background-color:rgb(163, 14, 3);
+}
+
+.mat-card-subtitle{
+  color: white;
+}
+.mat-card-title{
+  margin-bottom: 9%;
+}
+.mat-card-subtitle{
+   margin-bottom: 5%;
+}
+.mat-card{
+  width: 17%;
+  float: left;
+  margin: 10px;
+  color: white;
+  overflow: hidden !important;
+}
+.example-card-naovencida{
+  /* margin: 2em auto; */
+  text-align: center;
+  background-color: rgb(221, 165, 11);
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.dashboard{
+  margin-left: 13%;
+}

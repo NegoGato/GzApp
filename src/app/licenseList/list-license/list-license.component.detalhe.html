@@ -1,0 +1,11 @@
+<mat-nav-list>
+       
+    <a href="#" mat-list-item (click)="openLink($event)">
+      <span mat-line>Unidade                 :&nbsp;<b>{{data.details.unidade}}</b></span>
+      <span mat-line>Criado Por              :&nbsp;<b>{{data.details.criadoPor}}</b></span>
+      <span mat-line>Data Criação            :&nbsp;<b>{{data.details.dataDaCriacao | date: 'dd/MM/yyyy'}}</b></span>
+      <span mat-line>Ultima Alteração        :&nbsp;<b>{{data.details.ultimoQueAlterou}}</b></span>
+      <span mat-line>Data da Ultima Alteração:&nbsp;<b>{{data.details.dataDaUltimaAlteracao | date: 'dd/MM/yyyy'}}</b></span>
+      <span mat-line>Complemento             :&nbsp;<b>{{data.details.complemento}}</b></span>
+    </a>  
+  </mat-nav-list>

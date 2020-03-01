@@ -1,0 +1,74 @@
+<mat-card-content>
+<form  (ngSubmit)="onSubmit(usuarioFrm)"  [formGroup]="usuarioFrm">
+  <h2>{{data.modalTitle}}</h2>
+  <div>
+      <mat-form-field appearance="outline">
+      <mat-label>Nome Completo</mat-label>
+      <input matInput placeholder="Nome Completo" formControlName="nomeCompleto" id="inputRazaosocial">
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+      <!-- <mat-hint>Hint</mat-hint> -->
+      <mat-error *ngIf="formErrors.login">
+        {{ formErrors.login }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline">
+    <mat-label>Login</mat-label>
+    <input matInput placeholder="Login"  formControlName="login">
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <!-- <mat-hint>Hint</mat-hint> -->
+    <mat-error *ngIf="formErrors.login">
+      {{ formErrors.login }}
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<div>
+  <mat-form-field appearance="outline">
+  <mat-label>E-mail</mat-label>
+  <input matInput placeholder="E-mail" formControlName="email">
+  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+  <!-- <mat-hint>Hint</mat-hint> -->
+  <mat-error *ngIf="formErrors.email">
+    {{ formErrors.email }}
+  </mat-error>
+</mat-form-field>
+</div>
+
+<div *ngIf="editsave">
+  <mat-form-field appearance="outline">
+  <mat-label>Senha</mat-label>
+  <input matInput type="password" placeholder="Senha" formControlName="password">
+  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+  <!-- <mat-hint>Hint</mat-hint> -->
+  <mat-error *ngIf="formErrors.password">
+    {{ formErrors.password }}
+  </mat-error>
+</mat-form-field>
+</div>
+
+<div *ngIf="editsave">
+  <mat-form-field appearance="outline">
+  <mat-label>Confirmar senha</mat-label>
+  <input  type="password" matInput placeholder="Confirmar senha" formControlName="confirmPassword">
+  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+  <!-- <mat-hint>Hint</mat-hint> -->
+  <mat-error *ngIf="formErrors.confirmPassword">
+    {{ formErrors.confirmPassword }}
+  </mat-error>
+</mat-form-field>
+</div>
+
+<div class="checkbox">
+  <mat-checkbox  formControlName="super">Super</mat-checkbox>
+</div>
+
+  <div>
+    <button type="button" mat-raised-button color="warn" (click)="dialogRef.close()">Cancelar</button>&nbsp;
+    <button type="submit" mat-raised-button color="primary" [disabled]="usuarioFrm.invalid">{{data.modalBtnTitle}}</button>
+  </div>
+
+  </form>
+</mat-card-content>

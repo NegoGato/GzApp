@@ -1,0 +1,108 @@
+
+<mat-card-title>    
+    {{data.modalTitle}}  
+</mat-card-title>  
+<mat-card-content>
+<form  (ngSubmit)="onSubmit(pagamentoFrm)"  [formGroup]="pagamentoFrm">
+  
+  <div>
+      <mat-form-field appearance="outline">
+      <mat-label>Os</mat-label>
+      <input matInput placeholder="Os" formControlName="os" id="inputRazaosocial">
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+      <!-- <mat-hint>Hint</mat-hint> -->
+      <mat-error *ngIf="formErrors.os">
+        {{ formErrors.os }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline">
+    <mat-label>Razão social</mat-label>
+    <input matInput placeholder="Razão social"  formControlName="razaoSocial">
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <!-- <mat-hint>Hint</mat-hint> -->
+    <mat-error *ngIf="formErrors.razaoSocial">
+      {{ formErrors.razaoSocial }}
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<!-- <div>
+  <mat-form-field appearance="outline">
+  <mat-label>Identificador fiscal</mat-label>
+  <input matInput placeholder="Identificador fiscal" formControlName="identificadorFiscal">
+  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+  <!-- <mat-hint>Hint</mat-hint> -->
+  <!-- <mat-error *ngIf="formErrors.identificadorFiscal">
+    {{ formErrors.identificadorFiscal }}
+  </mat-error>
+</mat-form-field>
+</div> --> 
+
+<div>
+  <mat-form-field appearance="outline">
+  <mat-label>Nº da nota</mat-label>
+  <input matInput placeholder="Nº da nota" formControlName="numeroDaNota">
+  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+  <!-- <mat-hint>Hint</mat-hint> -->
+  <mat-error *ngIf="formErrors.numeroDaNota">
+    {{ formErrors.numeroDaNota }}
+  </mat-error>
+</mat-form-field>
+</div>
+
+<div>
+  <mat-form-field appearance="outline">
+  <mat-label>Competência</mat-label>
+  <input type="number" min="1" max="12" matInput placeholder="Competência" formControlName="competencia">
+  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+  <!-- <mat-hint>Hint</mat-hint> -->
+  <mat-error *ngIf="formErrors.competencia">
+    {{ formErrors.competencia }}
+  </mat-error>
+</mat-form-field>
+</div>
+
+<div>
+  <mat-form-field appearance="outline">
+  <mat-label>Valor</mat-label>
+  <input currencyMask matInput formControlName="valor">
+  <!-- <input matInput placeholder="Valor" currencyMask  formControlName="valor"> -->
+  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+  <!-- <mat-hint>Hint</mat-hint> -->
+  <mat-error *ngIf="formErrors.valor">
+    {{ formErrors.valor }}
+  </mat-error>
+</mat-form-field>
+</div>
+
+  <div>
+    <mat-form-field appearance="outline">
+      <input matInput [matDatepicker]="picker" placeholder="Data do pagamento"  formControlName="dataPagamento">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+
+    <mat-error *ngIf="formErrors.dataPagamento ">
+      {{ formErrors.dataPagamento }}
+    </mat-error>
+    </mat-form-field>
+  </div>
+
+    <div>
+      <mat-form-field appearance="outline">
+      <mat-label>Observação</mat-label>
+      <textarea  matInput placeholder="Observação" formControlName="obs"></textarea>
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+      <!-- <mat-hint>Hint</mat-hint> -->     
+    </mat-form-field>
+    </div>
+
+  <div>
+    <button type="button" mat-raised-button color="warn" (click)="dialogRef.close()">Cancel</button>&nbsp;
+    <button type="submit" mat-raised-button color="primary" [disabled]="pagamentoFrm.invalid">{{data.modalBtnTitle}}</button>
+  </div>
+
+</form>
+</mat-card-content>

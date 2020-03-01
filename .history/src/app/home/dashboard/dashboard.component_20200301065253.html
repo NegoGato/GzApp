@@ -1,0 +1,36 @@
+<div  class="dashboard">
+    <mat-card *ngFor="let unidade of unidades" [ngClass]="[unidade.vencida == 'true' ? 'example-card' : 'example-card-naovencida']">
+        <mat-grid-list cols="4" rowHeight="155px" >         
+           
+             <mat-card-header>
+
+              <!-- <div mat-card-avatar class="example-header-image"></div> -->
+              <mat-card-title>
+                  <button mat-button (click)="licenseForm(unidade.idLicense)"> {{unidade.os}}</button> 
+                </mat-card-title>
+    
+            </mat-card-header>
+            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+            <mat-card-content>
+              <p>
+                  <mat-card-subtitle>{{unidade.nome}}</mat-card-subtitle>
+                  <mat-card-subtitle>{{unidade.validade | date: 'dd/MM/yyyy'}}</mat-card-subtitle>
+                  <mat-card-subtitle>{{unidade.chaveDeHardware}}</mat-card-subtitle>              
+                Status: {{unidade.situacao}}
+              </p>              
+            </mat-card-content>   
+                    
+            <!-- <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions> -->
+          
+          
+       
+        </mat-grid-list>
+      </mat-card>
+    
+    <!-- *ngIf="unidade.vencida == 'S'? ; else listLicense" -->
+</div>
+   
+

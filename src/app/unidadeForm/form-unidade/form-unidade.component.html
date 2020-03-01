@@ -1,0 +1,97 @@
+<mat-card-content>
+  <form class="my-form"  (ngSubmit)="onSubmit(unidadeFrm)"  [formGroup]="unidadeFrm">
+    <h2>{{data.modalTitle}}</h2>
+    <div>
+        <mat-form-field appearance="outline">
+        <mat-label>Organização social</mat-label>
+        <input matInput placeholder="Os" formControlName="os" id="inputRazaosocial">
+        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+        <!-- <mat-hint>Hint</mat-hint> -->
+        <mat-error *ngIf="formErrors.os">
+          {{ formErrors.os }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  
+    <div>
+      <mat-form-field appearance="outline">
+      <mat-label>Razão Social</mat-label>
+      <input matInput placeholder="Razão Social"  formControlName="razaoSocial">
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+      <!-- <mat-hint>Hint</mat-hint> -->
+      <mat-error *ngIf="formErrors.razaoSocial">
+        {{ formErrors.razaoSocial }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field appearance="outline">
+    <mat-label>CNPJ</mat-label>
+    <input matInput placeholder="Cnpj" formControlName="cnpj"  mask='00.000.000/0000-00'>
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <!-- <mat-hint>Hint</mat-hint> -->
+    <mat-error *ngIf="formErrors.cnpj">
+      {{ formErrors.cnpj }}
+    </mat-error>
+  </mat-form-field>
+  </div>
+  
+  <!-- <div>
+    <mat-form-field appearance="outline">
+    <mat-label>Identificador Fiscal</mat-label>
+    <input matInput placeholder="Identificador Fiscal" formControlName="identificadorFiscal">
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <!-- <mat-hint>Hint</mat-hint> -->
+    <!-- <mat-error *ngIf="formErrors.identificadorFiscal">
+      {{ formErrors.identificadorFiscal }}
+    </mat-error>
+  </mat-form-field>
+  </div> -->
+  
+  <div>
+    <mat-form-field appearance="outline">
+    <mat-label>N° Contrato</mat-label>
+    <input matInput placeholder="N° Contrato" formControlName="numero">
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <!-- <mat-hint>Hint</mat-hint> -->
+    <mat-error *ngIf="formErrors.numero">
+      {{ formErrors.numero }}
+    </mat-error>
+  </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-select placeholder="Tipo de Contrato" formControlName="tipoContratos">
+        <mat-option>-- None --</mat-option>
+        <mat-option *ngFor="let tipoContratos  of tipoDeContratos" [value]="tipoContratos.Id">
+          {{ tipoContratos.Descricao }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formErrors.tipoContratos ">
+        {{ formErrors.tipoContratos }}
+      </mat-error>
+  </mat-form-field>
+  </div>
+  
+  <div>
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="picker" placeholder="Data do Vencimento"  formControlName="dataDoVencimento">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+  
+      <mat-error *ngIf="formErrors.dataDoVencimento ">
+        {{ formErrors.dataDoVencimento }}
+      </mat-error>
+      </mat-form-field>
+    </div>
+  
+    <div>
+      <button type="button" mat-raised-button color="warn" (click)="dialogRef.close()">Cancelar</button>&nbsp;
+      <button type="submit" mat-raised-button color="primary" [disabled]="unidadeFrm.invalid">{{data.modalBtnTitle}}</button>
+    </div>
+  
+    </form>
+  
+</mat-card-content>

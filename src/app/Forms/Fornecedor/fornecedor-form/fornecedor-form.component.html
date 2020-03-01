@@ -1,0 +1,61 @@
+<mat-card-content>
+    <form class="my-form"  (ngSubmit)="onSubmit(fornecedoresForm)"  [formGroup]="fornecedoresForm">
+      <h2>{{data.modalTitle}}</h2>
+      <div class="checkbox" style="margin-bottom: 3px;">
+        <mat-checkbox  (change)="changeStatus($event)" [checked] = "pessoaFisical">Pessoa Física</mat-checkbox>
+      </div>
+      <div>
+          <mat-form-field appearance="outline">
+          <mat-label>Razão social</mat-label>
+          <input matInput placeholder="Razão social" formControlName="nome" id="nome">
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+          <!-- <mat-hint>Hint</mat-hint> -->
+          <mat-error *ngIf="formErrors.nome">
+            {{ formErrors.nome }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+     
+      <div *ngIf="pessoaFisical">
+          <mat-form-field appearance="outline">
+          <mat-label>CPF</mat-label>
+          <input matInput placeholder="Cpf" formControlName="cnpj"  mask='000.000.000-00'>
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+          <!-- <mat-hint>Hint</mat-hint> -->
+          <mat-error *ngIf="formErrors.cnpj">
+            {{ formErrors.cnpj }}
+          </mat-error>
+        </mat-form-field>
+        </div>
+
+        <div *ngIf="!pessoaFisical">
+          <mat-form-field appearance="outline">
+          <mat-label>CNPJ</mat-label>
+          <input matInput placeholder="Cnpj" formControlName="cnpj"  mask='00.000.000/0000-00'>
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+          <!-- <mat-hint>Hint</mat-hint> -->
+          <mat-error *ngIf="formErrors.cnpj">
+            {{ formErrors.cnpj }}
+          </mat-error>
+        </mat-form-field>
+        </div>
+    
+        <div>
+            <mat-form-field appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput placeholder="Telefone" formControlName="telefone" mask ='(00) 00000-0000' >
+            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            <!-- <mat-hint>Hint</mat-hint> -->
+            <mat-error *ngIf="formErrors.telefone">
+              {{ formErrors.telefone }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+   
+      <div>
+        <button type="button" mat-raised-button color="warn" (click)="dialogRef.close()">Cancelar</button>&nbsp;
+        <button type="submit" mat-raised-button color="primary" [disabled]="fornecedoresForm.invalid">{{data.modalBtnTitle}}</button>
+      </div>    
+      </form>
+    
+  </mat-card-content>

@@ -1,0 +1,63 @@
+
+    <div class="spinner" *ngIf="loadingState; else listFornecedores">
+      <mat-spinner></mat-spinner>
+  </div>
+  <div class="example-container mat-elevation-z8">
+    <h2 style="text-align: center;">Fornecedores</h2>
+    <div class="unidadelist-container mat-elevation-z8">
+        <mat-form-field style="width: 100%">
+            <mat-select style="width: 100%" placeholder="Razão social/Cnpj"  [formControl]="fornecedorCtrl" [(value)]="selectedTipo"  (valueChange)="getFornecedores()" #singleSelect>
+                <mat-option>
+                    <ngx-mat-select-search [formControl]="fornecedoresFilterCtrl"></ngx-mat-select-search>
+                </mat-option>                 
+                <mat-option>-- None --</mat-option>
+              <mat-option *ngFor="let fornecedor of filteredFornecedor | async" [value]="fornecedor">
+                {{fornecedor.nome}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      <div><button title="Create" mat-raised-button color="accent" (click)="addFornecedor()">Adicionar</button></div>
+      <mat-table #table [dataSource]="dataSource">
+
+        <!-- Id Column -->
+        <!-- <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container> -->
+
+        <!-- Razao social Column -->
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef> Razao Social </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
+        </ng-container>
+
+         <!-- cnpj  Column -->
+         <ng-container matColumnDef="cnpj">
+          <mat-header-cell *matHeaderCellDef> Cnpj </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.cnpj}}</mat-cell>
+        </ng-container>
+
+        <!-- cnpj  Identificador Fiscal -->
+        <ng-container matColumnDef="telefone">
+          <mat-header-cell *matHeaderCellDef> Telefone </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.telefone}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell class="center" *matHeaderCellDef> Operação </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button title="Editar" mat-raised-button color="primary" (click)="editFornecedor(element.id)">Editar</button>&nbsp;
+            <button mat-button title="Remover" mat-raised-button color="warn" (click)="deleteFornecedor(element.id)">Remover</button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[6, 10]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  <!-- </ng-template> -->
+
+ 
